@@ -1,0 +1,69 @@
+/*
+  USAGE:
+  .cool-item {
+    @include f-item(12) // width, offset, after
+  }
+
+  <div class='f-grid'>
+    <div class='f-grid-item cool-item'>...stuff...</div>
+  </div>
+
+*/
+
+// VARIABLES
+$f-coverage: 70%;
+$f-columns: 12;
+
+// FUNCTIONS
+@function get-f-grid-col($cols) {
+  @if ($cols > 0) {
+    @return calc( (#{$f-coverage} / 12 * #{$cols}) +
+                  ((#{$cols - 1}) * (100% - #{$f-coverage}) / #{$f-columns + 1}));
+  }
+  @else {
+    @return 0px;
+  }
+};
+
+
+// MIXINS
+@mixin f-item($width, $offset: 0, $after: 0) {
+  width: get-f-grid-col($width);
+  box-sizing: border-box;
+
+  @if ($offset == 0) {
+    margin-left: calc((100% - #{$f-coverage}) / #{$f-columns + 1});
+  }
+  @else {
+    margin-left: calc(  (#{$f-coverage} / 12 * #{$offset}) +
+                        ((#{$offset + 1}) * (100% - #{$f-coverage}) /
+                        #{$f-columns + 1}));
+  }
+
+  @if ($after == 0) {
+    margin-right: 0;
+  }
+  @else {
+    margin-right: calc( (#{$f-coverage} / 12 * #{$after}) +
+                        ((#{$after + 1}) * (100% - #{$f-coverage}) /
+                        #{$f-columns + 1}));
+  }
+};
+
+// STYlES
+.f-grid {
+  display: flex;
+  flex-wrap: wrap;;
+  width: 100%;
+  box-sizing: border-box;
+
+  // items in the grid
+  &-item {
+
+  }
+}
+
+// allow include
+@mixin f-grid() {
+  @extend .f-grid;
+}
