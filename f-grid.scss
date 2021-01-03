@@ -33,7 +33,7 @@ $f-columns: 12;
   margin-left: calc((#{$f-coverage} / 12 * #{$offset}) +
                     ((#{$offset + 1}) * (100% - #{$f-coverage}) / #{$f-columns + 1}));
   margin-right: calc((#{$f-coverage} / 12 * #{$after} +
-                        (#{$after} / 12 * (100% - #{$f-coverage})));
+                        (#{$after} / 12 * (100% - #{$f-coverage}))));
 };
 
 // STYlES
@@ -46,9 +46,7 @@ $f-columns: 12;
   box-sizing: border-box;
 
   // items in the grid
-  &-item {
-
-  }
+  //&-item {}
 }
 
 // allow include
