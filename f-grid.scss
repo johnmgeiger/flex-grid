@@ -3,11 +3,9 @@
   .cool-item {
     @include f-item(12) // width, offset, after
   }
-
   <div class='f-grid'>
     <div class='f-grid-item cool-item'>...stuff...</div>
   </div>
-
 */
 
 // VARIABLES
@@ -30,30 +28,20 @@ $f-columns: 12;
 @mixin f-item($width, $offset: 0, $after: 0) {
   width: get-f-grid-col($width);
   box-sizing: border-box;
+  align-self: flex-start;
 
-  @if ($offset == 0) {
-    margin-left: calc((100% - #{$f-coverage}) / #{$f-columns + 1});
-  }
-  @else {
-    margin-left: calc(  (#{$f-coverage} / 12 * #{$offset}) +
-                        ((#{$offset + 1}) * (100% - #{$f-coverage}) /
-                        #{$f-columns + 1}));
-  }
-
-  @if ($after == 0) {
-    margin-right: 0;
-  }
-  @else {
-    margin-right: calc( (#{$f-coverage} / 12 * #{$after}) +
-                        ((#{$after + 1}) * (100% - #{$f-coverage}) /
-                        #{$f-columns + 1}));
-  }
+  margin-left: calc((#{$f-coverage} / 12 * #{$offset}) +
+                    ((#{$offset + 1}) * (100% - #{$f-coverage}) / #{$f-columns + 1}));
+  margin-right: calc((#{$f-coverage} / 12 * #{$after} +
+                        (#{$after} / 12 * (100% - #{$f-coverage})));
 };
 
 // STYlES
 .f-grid {
   display: flex;
-  flex-wrap: wrap;;
+  align-content: flex-start;
+  flex-wrap: wrap;
+
   width: 100%;
   box-sizing: border-box;
 
